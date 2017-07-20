@@ -1,8 +1,10 @@
 package Controllers;
 
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
@@ -17,8 +19,15 @@ public class mainController {
     private long percent;
 
     @FXML
-    private TextField shownameField;
+    public static TextField shownameField;
 
+    @FXML
+    public static Label showLabel;
+
+
+
+
+/*
     public void update(){
         do{
             MPC.getData();
@@ -36,7 +45,7 @@ public class mainController {
         }
         while(percent<0.97);
     }
-
+*/
 
 
 
