@@ -18,7 +18,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        new Controllers.mainController().update();
+        //new Controllers.mainController().update();
         launch(args);
 
     }

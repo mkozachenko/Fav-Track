@@ -15,13 +15,13 @@ import java.io.IOException;
  */
 public class MyShowsOAuth {
 
-    private static final String clientId = "";
-    private static final String secret = "";
     private static final String token = "https://myshows.me/oauth/token";
     private static String responseToken, error, errorResponse;
 
     //public static void main(String[] args){
     public static void getToken(String username, String password){
+        String clientId = new GetPropetries().getMyShowsClientId();
+        String secret = new GetPropetries().getMyShowsSecret();
         try {
             TokenResponse response =
                     new PasswordTokenRequest(new NetHttpTransport(), new JacksonFactory(),
