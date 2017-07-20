@@ -1,0 +1,9 @@
+{
+  "uri": "https://https://myshows.me/oauth/token",
+  "method": "POST",
+  "body": "",
+  "headers": {
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  }
+}
