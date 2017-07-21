@@ -29,11 +29,19 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("mainWindow.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("mainWindow.fxml"));
+        //loader.setController(this);
+        Parent root = loader.load();
+
+        Probe player = new Probe(loader.getController());
+
+
+
         AtomicInteger count = new AtomicInteger();
-/*
+
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(5, r -> {
             Thread t = new Thread(r);
             t.setDaemon(true);
@@ -46,13 +54,13 @@ public class Main extends Application {
                     return "Count: "+count.incrementAndGet();
                 }
             };
-            task.setOnSucceeded(event -> mainController.shownameField.setText(task.getValue()));
+            task.setOnSucceeded(event -> player.probe());
             task.run();
         }, 1, 1, TimeUnit.SECONDS);
 
 
-        /*
 
+/*
         ScheduledService<String> service = new ScheduledService<String>() {
             @Override
             protected Task<String> createTask() {
@@ -90,7 +98,7 @@ public class Main extends Application {
     }
 
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
         //new Controllers.mainController().update();
         launch(args);
 

@@ -19,12 +19,15 @@ public class mainController {
     private long percent;
 
     @FXML
-    public static TextField shownameField;
+    private TextField shownameField;
 
     @FXML
-    public static Label showLabel;
+    private Label showLabel;
 
 
+    public void updateLabel(String update){
+        showLabel.setText("___");
+    }
 
 
 /*

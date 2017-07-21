@@ -56,7 +56,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Сериал" />
+                              <Label fx:id="showLabel" text="Сериал" />
                               <Label text="Сезон" GridPane.rowIndex="1" />
                               <Label text="Эпизод" GridPane.rowIndex="2" />
                               <TextField fx:id="shownameField" GridPane.columnIndex="1" />
