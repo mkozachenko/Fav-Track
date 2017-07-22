@@ -13,3 +13,4 @@ Thumbs.db
 #FOLDERS#
 target/
 src/test
+.idea/workspace.xml
