@@ -7,6 +7,8 @@ import java.io.IOException;
 
 import static java.lang.Integer.parseInt;
 
+import main.*;
+
 /**
  * Created by symph on 13.07.2017.
  */
@@ -15,8 +17,9 @@ public class MPC {
     private static int position, duration;
 
     public static void getData(){
-        MPC_host = "localhost";
-        MPC_port = "13579";
+        MPC_host = new GetPropetries().getMPC_host();
+        MPC_port = new GetPropetries().getMPC_port();
+
         try (final WebClient webClient = new WebClient()) {
             final HtmlPage page = webClient.getPage("http://"+MPC_host+":"+MPC_port+"/variables.html");
             filename = page.getElementById("file").getTextContent();
@@ -35,7 +38,7 @@ public class MPC {
         return this.duration;
     }
 
-    public  String getFilename(){
+    public String getFilename(){
         return this.filename;
     }
 

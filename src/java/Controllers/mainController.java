@@ -19,14 +19,14 @@ public class mainController {
     private long percent;
 
     @FXML
-    private TextField shownameField;
+    private TextField shownameField,seasonField, episodeField;
 
     @FXML
     private Label showLabel;
 
 
     public void updateLabel(String update){
-        showLabel.setText("___");
+        shownameField.setText(update);
     }
 
 
@@ -50,6 +50,8 @@ public class mainController {
     }
 */
 
+public void receiveData(){
 
+}
 
 }
