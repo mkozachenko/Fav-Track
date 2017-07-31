@@ -14,3 +14,9 @@ Thumbs.db
 target/
 src/test
 .idea/workspace.xml
+.idea/workspace.xml
+src/java/Parsers/GOMplayer.java
+src/java/Parsers/KMPlayer.java
+.idea/workspace.xml
+src/java/Parsers/Kodi.java
+src/java/Parsers/POTplayer.java
