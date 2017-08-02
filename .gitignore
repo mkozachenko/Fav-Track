@@ -27,3 +27,4 @@ src/java/Parsers/POTplayer.java
 #IDE SETUP#
 ######################
 workspace.xml
+.idea/workspace.xml
