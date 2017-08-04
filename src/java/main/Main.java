@@ -17,8 +17,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("mainWindow.fxml"));
+        FXMLLoader loader;
+        if(new GetPropetries().getAutoLogin()) {
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("loginWindow.fxml"));
+        } else {
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("mainWindow.fxml"));
+            MyShowsOAuth.getToken(new GetPropetries().getUserLogin(), new GetPropetries().getUserPassword());
+        }
         //loader.setController(this);
         Parent root = loader.load();
 
