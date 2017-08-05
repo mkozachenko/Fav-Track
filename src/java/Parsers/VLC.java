@@ -11,10 +11,10 @@ import java.io.IOException;
  * Created by symph on 13.07.2017.
  */
 public class VLC {
-    static String VLC_host, VLC_port, VLC_password, VLC_login;
+    private static String VLC_host, VLC_port, VLC_password, VLC_login;
     private static String title, seasonNumber, episodeNumber, filename;
     private static int length, time;
-    public static DomElement DOMfilename, DOMtime, DOMlength, DOMepisode, DOMseason, DOMshow, DOMtitle;
+    private static DomElement DOMfilename, DOMtime, DOMlength, DOMepisode, DOMseason, DOMtitle;
 
     public static void getData (){
         VLC_host = new GetPropetries().getVLC_host();
@@ -34,10 +34,6 @@ public class VLC {
                 DOMepisode = page.getFirstByXPath("//information/category[@name='meta']/info[@name='episodeNumber']");
                 episodeNumber = DOMepisode.getTextContent();
             } catch (NullPointerException e){/*System.err.println(e);*/}
-            /*try {
-                DOMshow = page.getFirstByXPath("//information/category[@name='meta']/info[@name='title']");
-                title = DOMshow.getTextContent();
-            } catch (NullPointerException e){/*System.err.println(e);}*/
             try {
                 DOMseason = page.getFirstByXPath("//information/category[@name='meta']/info[@name='seasonNumber']");
                 seasonNumber = DOMseason.getTextContent();

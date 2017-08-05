@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 import Parsers.*;
+import main.Getter;
 
 /**
  * Created by symph on 09.07.2017.
@@ -25,30 +26,9 @@ public class mainController {
     private Label showLabel;
 
 
-    public void updateLabel(String update){
+    public void updateShowname(String update){
         shownameField.setText(update);
     }
-
-
-/*
-    public void update(){
-        do{
-            MPC.getData();
-            position = new MPC().getPosition();
-            duration = new MPC().getDuration();
-            percent = (long) Math.floor(position/duration);
-            System.out.println(percent);
-            System.out.println(position);
-            System.out.println(duration);
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        while(percent<0.97);
-    }
-*/
 
 public void receiveData(){
 

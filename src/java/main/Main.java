@@ -1,5 +1,7 @@
 package main;
 
+import Controllers.*;
+
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +11,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main extends Application {
     boolean front=false;
@@ -45,17 +46,18 @@ public class Main extends Application {
                 @Override
                 public String call() {
                     System.out.println("Ah!");
-                    if(front){primaryStage.toFront();
-                    }
+                    //new mainController().updateShowname();
+                    controller.showname();
                     return null;
                 }
             };
             /////////////////
+            task.setOnSucceeded(event -> controller.showname());
             task.run();
             try {
                 if (task.get()){
                     task.cancel();
-                    front(task.get());
+                    //front(task.get());
                     task2.run();
                 } else {
                     task2.cancel();
@@ -66,7 +68,7 @@ public class Main extends Application {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-        }, 1, 3, TimeUnit.SECONDS);
+        }, 1, 15, TimeUnit.SECONDS);
 
 
         /*ScheduledFuture<?> countdown = exec.schedule(new Runnable() {
