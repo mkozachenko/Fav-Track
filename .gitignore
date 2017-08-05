@@ -1,3 +1,5 @@
+#SENSITIVE DATA#
+######################
 config.properties
 
 # OS generated files #
@@ -11,12 +13,18 @@ ehthumbs.db
 Thumbs.db
 
 #FOLDERS#
+######################
 target/
 src/test
-.idea/workspace.xml
-.idea/workspace.xml
+
+#JAVA INCOMPLETE#
+######################
 src/java/Parsers/GOMplayer.java
 src/java/Parsers/KMPlayer.java
-.idea/workspace.xml
 src/java/Parsers/Kodi.java
 src/java/Parsers/POTplayer.java
+
+#IDE SETUP#
+######################
+workspace.xml
+.idea/workspace.xml

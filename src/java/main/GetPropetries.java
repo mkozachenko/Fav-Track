@@ -13,7 +13,8 @@ import java.util.Properties;
 public class GetPropetries {
 
     private String MyShowsClientId, MyShowsSecret;
-    private String user_pref_player;
+    private String user_pref_player, user_login, user_password;
+    private boolean user_rememberMe,user_autologin;
     private String MPC_host, MPC_port;
     private String VLC_host, VLC_port, VLC_password, VLC_login;
 
@@ -51,6 +52,10 @@ public class GetPropetries {
             }
             //Extract user preferences
             user_pref_player = prop.getProperty("user_pref_player");
+            user_login = prop.getProperty("user_login");
+            user_password = prop.getProperty("user_password");
+            user_rememberMe = Boolean.valueOf(prop.getProperty("user_rememberMe"));
+            user_autologin = Boolean.valueOf(prop.getProperty("user_login"));
         } catch (Exception e) {
             System.out.println("Exception: " + e);
         } finally {
@@ -90,7 +95,7 @@ public class GetPropetries {
             inputSecretStream.close();
         }
     }
-//Secret getters
+    //Secret getters
     public String getMyShowsClientId(){
         try {getSecretValues();}
         catch (IOException e) {e.printStackTrace();}
@@ -101,7 +106,6 @@ public class GetPropetries {
         catch (IOException e) {e.printStackTrace();}
         return this.MyShowsSecret;
     }
-    /****/
 
     //User prefs getters
     public String getUserPref_Player(){
@@ -142,4 +146,25 @@ public class GetPropetries {
         return this.VLC_login;
     }
 
+    //User login getters
+    public String getUserLogin(){
+        try {getSecretValues();}
+        catch (IOException e) {e.printStackTrace();}
+        return this.user_login;
+    }
+    public String getUserPassword(){
+        try {getSecretValues();}
+        catch (IOException e) {e.printStackTrace();}
+        return this.user_password;
+    }
+    public boolean getRememberMe(){
+        try {getSecretValues();}
+        catch (IOException e) {e.printStackTrace();}
+        return this.user_rememberMe;
+    }
+    public boolean getAutoLogin(){
+        try {getSecretValues();}
+        catch (IOException e) {e.printStackTrace();}
+        return this.user_autologin;
+    }
 }

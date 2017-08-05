@@ -34,11 +34,11 @@ public class loginController {
     @FXML protected void fieldValidation(ActionEvent event) throws IOException {
         usernameField.textProperty().addListener((observable, oldValue, newValue) -> {
 
-                if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) { // we only care about loosing focus
+                if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
                     // check condition and apply necessay style
                     usernameField.setStyle("-fx-background-color: #068383;");
                     passwordField.setStyle("-fx-background-color: #068383;");
-                    passwordField.setText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                    //passwordField.setText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 } else {
                     usernameField.setStyle("-fx-background-color: #068383;");
                     passwordField.setStyle("-fx-background-color: #068383;");
