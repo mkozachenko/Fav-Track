@@ -35,7 +35,7 @@ public class MyShowsOAuth {
                 System.err.println("Error: " + e.getDetails().getError());
                 error = e.getDetails().getErrorDescription();
                 if (e.getDetails().getErrorDescription() != null) {
-                    System.err.println("Description "+e.getDetails().getErrorDescription());
+                    System.err.println("Description: "+e.getDetails().getErrorDescription());
                     error = e.getDetails().getErrorDescription();
                 }
                 if (e.getDetails().getErrorUri() != null) {
@@ -43,7 +43,7 @@ public class MyShowsOAuth {
                     error = e.getDetails().getErrorUri();
                 }
             } else {
-                System.err.println("GetMessage^ "+e.getMessage());
+                System.err.println("GetMessage: "+e.getMessage());
                 error = e.getMessage();
             }
         } catch (IOException e) {
@@ -53,6 +53,10 @@ public class MyShowsOAuth {
 
     public static String getResponse(){
         return responseToken;
+    }
+
+    public String getResponseNew(){
+        return this.responseToken;
     }
 
     public static String errorHandle(){

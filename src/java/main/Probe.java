@@ -33,6 +33,6 @@ public class Probe {
     }
 
     public void showname(){
-        mc.updateShowname(update);
+        mc.updateShowData();
     }
 }

@@ -38,12 +38,10 @@ public class loginController {
                     // check condition and apply necessay style
                     usernameField.setStyle("-fx-background-color: #068383;");
                     passwordField.setStyle("-fx-background-color: #068383;");
-                    //passwordField.setText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 } else {
                     usernameField.setStyle("-fx-background-color: #068383;");
                     passwordField.setStyle("-fx-background-color: #068383;");
                 }
-
         });
     }
 
@@ -99,7 +97,6 @@ public class loginController {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("mainWindow.fxml"));
                     Parent root1 = (Parent) fxmlLoader.load();
                     Stage stageOld = (Stage) exit.getScene().getWindow();
-                    // do what you have to do
                     stageOld.hide();
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root1));

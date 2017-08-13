@@ -55,7 +55,7 @@ public class GetPropetries {
             user_login = prop.getProperty("user_login");
             user_password = prop.getProperty("user_password");
             user_rememberMe = Boolean.valueOf(prop.getProperty("user_rememberMe"));
-            user_autologin = Boolean.valueOf(prop.getProperty("user_login"));
+            user_autologin = Boolean.valueOf(prop.getProperty("user_autologin"));
         } catch (Exception e) {
             System.out.println("Exception: " + e);
         } finally {
@@ -148,22 +148,22 @@ public class GetPropetries {
 
     //User login getters
     public String getUserLogin(){
-        try {getSecretValues();}
+        try {getUserValues();}
         catch (IOException e) {e.printStackTrace();}
         return this.user_login;
     }
     public String getUserPassword(){
-        try {getSecretValues();}
+        try {getUserValues();}
         catch (IOException e) {e.printStackTrace();}
         return this.user_password;
     }
     public boolean getRememberMe(){
-        try {getSecretValues();}
+        try {getUserValues();}
         catch (IOException e) {e.printStackTrace();}
         return this.user_rememberMe;
     }
     public boolean getAutoLogin(){
-        try {getSecretValues();}
+        try {getUserValues();}
         catch (IOException e) {e.printStackTrace();}
         return this.user_autologin;
     }
