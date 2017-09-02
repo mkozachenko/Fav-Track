@@ -1,8 +1,6 @@
 package main;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Date;
 import java.util.Properties;
 
@@ -17,8 +15,10 @@ public class GetPropetries {
     private boolean user_rememberMe,user_autologin;
     private String MPC_host, MPC_port;
     private String VLC_host, VLC_port, VLC_password, VLC_login;
+    private static String propFileName = "user.properties";
 
     InputStream inputSecretStream;
+    OutputStream outputStream;
 
     private void getSecretValues() throws IOException {
         try {
@@ -43,7 +43,6 @@ public class GetPropetries {
     private void getUserValues() throws IOException {
         try {
             Properties prop = new Properties();
-            String propFileName = "user.properties";
             inputSecretStream = getClass().getClassLoader().getResourceAsStream(propFileName);
             if (inputSecretStream != null) {
                 prop.load(inputSecretStream);
@@ -56,6 +55,7 @@ public class GetPropetries {
             user_password = prop.getProperty("user_password");
             user_rememberMe = Boolean.valueOf(prop.getProperty("user_rememberMe"));
             user_autologin = Boolean.valueOf(prop.getProperty("user_autologin"));
+
         } catch (Exception e) {
             System.out.println("Exception: " + e);
         } finally {
@@ -67,7 +67,6 @@ public class GetPropetries {
         try {
             getUserValues();
             Properties prop = new Properties();
-            String propFileName = "user.properties";
             inputSecretStream = getClass().getClassLoader().getResourceAsStream(propFileName);
             if (inputSecretStream != null) {
                 prop.load(inputSecretStream);
@@ -95,6 +94,30 @@ public class GetPropetries {
             inputSecretStream.close();
         }
     }
+
+    private void setUserValues(String propName, String propValue) throws IOException {
+        String propFileName = "user.properties";
+        try {
+            Properties prop = new Properties();
+            outputStream = new FileOutputStream(propFileName);
+            if (inputSecretStream != null) {
+                prop.load(inputSecretStream);
+            } else {
+                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+            }
+            //Setup user preferences
+            prop.setProperty(propName, propValue);
+            //prop.setProperty(propName, propValue);
+            //System.out.println(prop.put(propName, propValue));
+
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+        } finally {
+            inputSecretStream.close();
+        }
+    }
+
+
     //Secret getters
     public String getMyShowsClientId(){
         try {getSecretValues();}
@@ -163,6 +186,27 @@ public class GetPropetries {
         return this.user_rememberMe;
     }
     public boolean getAutoLogin(){
+        try {getUserValues();}
+        catch (IOException e) {e.printStackTrace();}
+        return this.user_autologin;
+    }
+
+    //User login setters
+    public void setUserLogin(String propValue){
+        try {setUserValues("user_login", propValue);}
+        catch (IOException e) {e.printStackTrace();}
+    }
+    public String setUserPassword(){
+        try {getUserValues();}
+        catch (IOException e) {e.printStackTrace();}
+        return this.user_password;
+    }
+    public boolean setRememberMe(){
+        try {getUserValues();}
+        catch (IOException e) {e.printStackTrace();}
+        return this.user_rememberMe;
+    }
+    public boolean setAutoLogin(){
         try {getUserValues();}
         catch (IOException e) {e.printStackTrace();}
         return this.user_autologin;

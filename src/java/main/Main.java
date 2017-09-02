@@ -4,11 +4,13 @@ import Controllers.*;
 
 import javafx.application.Application;
 import javafx.concurrent.Task;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.util.concurrent.*;
 
@@ -30,6 +32,7 @@ public class Main extends Application {
         }
         Parent root = loader.load();
         execute();
+
         /*ScheduledFuture<?> countdown = exec.schedule(new Runnable() {
             @Override
             public void run() {
@@ -44,6 +47,7 @@ public class Main extends Application {
         primaryStage.setTitle("FavTrack");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
     }
 
     boolean front(boolean percent){
@@ -58,6 +62,7 @@ public class Main extends Application {
 
     private static void execute(){
         Probe controller = new Probe(loader.getController());
+        controller.rememberMe();
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(5, r -> {
             Thread t = new Thread(r);
             t.setDaemon(true);
@@ -76,7 +81,6 @@ public class Main extends Application {
             Task<Object> task2 = new Task<Object>() {
                 @Override
                 public String call() {
-                    System.out.println("Ah!");
                     if(!mainController.correction){
                         controller.showname();
                     }

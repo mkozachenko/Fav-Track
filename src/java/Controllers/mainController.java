@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import MYSHOWS.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import main.*;
 
 import javax.imageio.ImageIO;
@@ -29,7 +30,8 @@ public class mainController {
 
     @FXML
     private TextField shownameField,seasonField, episodeField;
-
+    @FXML
+    private MenuBar menubar;
     @FXML
     private ImageView showImage;
     @FXML
@@ -38,7 +40,8 @@ public class mainController {
     private WebView showInfo;
     @FXML
     private ToggleGroup userRating;
-
+    @FXML
+    private MenuItem menuButton_settings, menuButton_login, menuButton_close, menuButton_about;
 
 
     @FXML
@@ -79,14 +82,33 @@ public class mainController {
     }
     @FXML
     private void clickSendButton(){
-        String rating, searchQuery, episodeId;
+        String rating, searchQuery, episodeId, season, episode;
+        season = seasonField.getText();
+        episode = episodeField.getText();
+        /*Get user rating*/
         RadioButton chk = (RadioButton)userRating.getSelectedToggle();
         rating = chk.getText();
-        System.out.println(rating);
-        searchQuery = shownameField.getText()+".S0"+seasonField.getText()+"E0"+episodeField.getText();
+        /*Form MyShows query*/
+        searchQuery = shownameField.getText();
+        if (season.length()>1 && !season.startsWith("0")){
+            searchQuery = searchQuery+".S"+season;
+        }else if (season.length()==1){
+            searchQuery = searchQuery+".S0"+season;
+        } /*else if(season.startsWith("0")){
+            season.replaceFirst("0","");
+            searchQuery = searchQuery+".S"+season;
+        }*/
+        if (episode.length()>1 && !episode.startsWith("0")){
+            searchQuery = searchQuery+"E"+episode;
+        }else if (episode.length()==1){
+        searchQuery = searchQuery+"E0"+episode;
+        } /*else if(season.startsWith("0")){
+        season.replaceFirst("0","");
+        searchQuery = searchQuery+"E"+season;
+        }*/
+        System.out.println(searchQuery);
         new Shows().searchByFile(searchQuery);
         episodeId = new Shows().getEpisodeId();
-        System.out.println(rating+"__"+searchQuery+"___"+episodeId);
         new Manage().rateEpisode(episodeId,rating);
     }
 
@@ -140,5 +162,25 @@ public class mainController {
 
         }
     }
+
+    /*Menubar actions*/
+    @FXML
+    private void menuButtonClose(){
+        Stage stage = (Stage) menubar.getScene().getWindow();
+        stage.close();
+    }
+    @FXML
+    private void menuButtonAbout(){
+
+    }
+    @FXML
+    private void menuButtonLogin(){
+
+    }
+    @FXML
+    private void menuButtonSettings(){
+
+    }
+
 
 }

@@ -69,7 +69,7 @@ public class Shows {
                 e.printStackTrace();
             }
         }
-        System.out.println(json);
+        //System.out.println(json);
         JsonObject jobject = new JsonParser().parse(json).getAsJsonObject();
         if(jobject.has("result")){
             jobject = jobject.getAsJsonObject("result");
@@ -105,7 +105,7 @@ public class Shows {
                 e.printStackTrace();
             }
         }
-        System.out.println(json);
+        //System.out.println(json);
         JsonObject jobject = new JsonParser().parse(json).getAsJsonObject();
         if(jobject.has("result")){
             jobject = jobject.getAsJsonObject("result").getAsJsonObject("show");

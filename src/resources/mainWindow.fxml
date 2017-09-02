@@ -26,19 +26,16 @@
    <children>
       <MenuBar>
         <menus>
-          <Menu fx:id="menubarFile" mnemonicParsing="false" text="File">
+          <Menu fx:id="menubarFile" mnemonicParsing="false" text="Файл">
             <items>
-              <MenuItem fx:id="close" mnemonicParsing="false" text="Close" />
+                  <MenuItem fx:id="menuButton_settings" mnemonicParsing="false" onAction="#menuButtonSettings" text="Настройки" />
+                  <MenuItem fx:id="menuButton_login" mnemonicParsing="false" onAction="#menuButtonLogin" text="Параметры входа" />
+              <MenuItem fx:id="menuButton_close" mnemonicParsing="false" onAction="#menuButtonClose" text="Закрыть" />
             </items>
           </Menu>
-          <Menu fx:id="menubarEdit" mnemonicParsing="false" text="Edit">
+          <Menu fx:id="menubarHelp" mnemonicParsing="false" text="?">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu fx:id="menubarHelp" mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="menuButton_about" mnemonicParsing="false" onAction="#menuButtonAbout" text="О программе" />
             </items>
           </Menu>
         </menus>
