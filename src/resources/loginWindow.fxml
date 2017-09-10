@@ -36,17 +36,20 @@
          <GridPane.margin>
             <Insets left="3.0" />
          </GridPane.margin></PasswordField>
-      <CheckBox fx:id="autoLogin" mnemonicParsing="false" text="Автовход" GridPane.rowIndex="3" />
-      <Button fx:id="exit" minWidth="61.0" mnemonicParsing="false" onAction="#handleQuit" prefHeight="25.0" text="Отмена" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <CheckBox fx:id="autoLogin" focusTraversable="false" mnemonicParsing="false" text="Автовход" visible="false" GridPane.rowIndex="3" />
+      <Button fx:id="exit" cancelButton="true" minWidth="61.0" mnemonicParsing="false" onAction="#handleQuit" prefHeight="25.0" text="Отмена" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="3.0" />
          </GridPane.margin></Button>
-      <CheckBox fx:id="rememberMe" mnemonicParsing="false" text="Запомнить имя" wrapText="true" GridPane.rowIndex="2" />
-    <Button fx:id="login" disable="false" minWidth="52.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="25.0" text="Сохранить" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <CheckBox fx:id="rememberMe" focusTraversable="false" mnemonicParsing="false" text="Запомнить имя" visible="false" wrapText="true" GridPane.rowIndex="2" />
+    <Button fx:id="loginSave" defaultButton="true" disable="false" minWidth="52.0" mnemonicParsing="false" onAction="#handleLoginSave" prefHeight="25.0" text="Сохранить" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="3.0" />
          </GridPane.margin></Button>
-      <Label fx:id="loginState" GridPane.rowIndex="4" />
+      <Label fx:id="loginState" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="288.0" textFill="RED" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin></Label>
    </children>
 
     

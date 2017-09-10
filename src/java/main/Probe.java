@@ -25,14 +25,17 @@ public class Probe {
 
     public static void main (String[] args){
         System.out.println(new GetPropetries().getUserLogin());
-        new GetPropetries().setUserLogin("random");
+        new GetPropetries().setUserLogin("sdsdfsghh");
         System.out.println(new GetPropetries().getUserLogin());
     }
 
     public double percentage(){
-        MPC.getData();
+       /* MPC.getData();
         position = new MPC().getPosition();
-        duration = new MPC().getDuration();
+        duration = new MPC().getDuration();*/
+        //new Getter().getData();
+        position = new Getter().getPosition();
+        duration = new Getter().getDuration();
         percent = Math.floor((position*100f)/duration);
         return this.percent;
     }

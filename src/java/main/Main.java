@@ -23,13 +23,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-        if(new GetPropetries().getAutoLogin()) {
+        loader = new FXMLLoader(getClass().getClassLoader().getResource("mainWindow.fxml"));
+        MyShowsOAuth.getToken(userLogin, userPassword);
+        /*if(new GetPropetries().getAutoLogin()) {
             loader = new FXMLLoader(getClass().getClassLoader().getResource("mainWindow.fxml"));
             MyShowsOAuth.getToken(userLogin, userPassword);
         } else {
             loader = new FXMLLoader(getClass().getClassLoader().getResource("loginWindow.fxml"));
-        }
+        }*/
         Parent root = loader.load();
         execute();
 
@@ -74,7 +75,7 @@ public class Main extends Application {
                 public Boolean call() {
                     boolean end;
                     System.out.println(controller.percentage());
-                    end = controller.percentage() >= 98.0;
+                    end = controller.percentage() >= 95.0;
                     return end;
                 }
             };
@@ -83,6 +84,7 @@ public class Main extends Application {
                 public String call() {
                     if(!mainController.correction){
                         controller.showname();
+                        System.out.println("SHOWTIME");
                     }
                     return null;
                 }

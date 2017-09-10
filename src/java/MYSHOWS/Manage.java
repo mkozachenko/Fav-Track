@@ -89,7 +89,6 @@ public class Manage {
         JsonObject jobject = new JsonParser().parse(json).getAsJsonObject();
         if(jobject.get("result").toString()=="true"){
             return "true";
-
         }else{
             return "false";
         }

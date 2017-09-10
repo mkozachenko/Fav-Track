@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
@@ -12,9 +13,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="145.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="157.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.settingsController">
    <children>
-      <GridPane layoutX="21.0" layoutY="34.0" prefHeight="400.0" prefWidth="409.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane layoutX="21.0" layoutY="34.0" prefHeight="123.0" prefWidth="430.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -24,15 +25,15 @@
             <RowConstraints maxHeight="226.0" minHeight="6.0" prefHeight="40.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <RadioButton mnemonicParsing="false" text="MPC">
-               <toggleGroup>
-                  <ToggleGroup fx:id="player_select" />
-               </toggleGroup>
+            <RadioButton fx:id="select_MPC" mnemonicParsing="false" text="MPC">
                <padding>
                   <Insets left="10.0" />
                </padding>
+               <toggleGroup>
+                  <ToggleGroup fx:id="playerSelect" />
+               </toggleGroup>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="VLC" toggleGroup="$player_select" GridPane.columnIndex="1">
+            <RadioButton fx:id="select_VLC" mnemonicParsing="false" text="VLC" toggleGroup="$playerSelect" GridPane.columnIndex="1">
                <padding>
                   <Insets left="10.0" />
                </padding>
@@ -73,12 +74,12 @@
                      <children>
                         <TextField fx:id="VLC_login_field" promptText="Логин">
                            <HBox.margin>
-                              <Insets left="5.0" right="3.0" />
+                              <Insets bottom="2.0" left="5.0" right="3.0" top="2.0" />
                            </HBox.margin>
                         </TextField>
                         <TextField fx:id="VLC_password_field" promptText="Пароль">
                            <HBox.margin>
-                              <Insets left="2.0" />
+                              <Insets bottom="2.0" left="2.0" top="2.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
@@ -90,5 +91,15 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </GridPane>
+      <HBox layoutX="146.0" layoutY="116.0" prefHeight="37.0" prefWidth="163.0">
+         <children>
+            <Button fx:id="settingsSave" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#сlickSettingsSave" text="Сохранить" HBox.hgrow="NEVER">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="settingsDiscard" alignment="CENTER" cancelButton="true" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clickSettingsDiscard" prefHeight="25.0" prefWidth="72.0" text="Отмена" textAlignment="CENTER" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

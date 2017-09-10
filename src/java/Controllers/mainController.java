@@ -2,6 +2,9 @@ package Controllers;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -89,7 +92,7 @@ public class mainController {
         RadioButton chk = (RadioButton)userRating.getSelectedToggle();
         rating = chk.getText();
         /*Form MyShows query*/
-        searchQuery = shownameField.getText();
+        searchQuery = shownameField.getText().replace(" ", ".");
         if (season.length()>1 && !season.startsWith("0")){
             searchQuery = searchQuery+".S"+season;
         }else if (season.length()==1){
@@ -114,7 +117,7 @@ public class mainController {
 
     ////////////////////////////
     public void updateShowData(){
-        new Getter().getData();
+        //new Getter().getData();
 
         show = new Getter().getShowname();
         season = new Getter().getSeason();
@@ -175,11 +178,35 @@ public class mainController {
     }
     @FXML
     private void menuButtonLogin(){
-
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("loginWindow.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            //Stage stageOld = (Stage) exit.getScene().getWindow();
+            //stageOld.hide();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            stage.setResizable(false);
+            stage.setTitle("Настройки входа");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     private void menuButtonSettings(){
-
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("settingsWindow.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            //Stage stageOld = (Stage) exit.getScene().getWindow();
+            //stageOld.hide();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            stage.setResizable(false);
+            stage.setTitle("Настройки");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

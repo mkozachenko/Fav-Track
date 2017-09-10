@@ -27,16 +27,36 @@ public class loginController {
     public static String password;
 
     @FXML
-    private Button exit, login;
+    private Button exit, loginSave;
     @FXML
     private TextField usernameField, passwordField;
     @FXML
-    private Label errorOut;
+    private Label loginState;
     @FXML
-    private CheckBox autologin, rememberMe;
+    private CheckBox autoLogin, rememberMe;
+
+    public void initialize() {
+        setValues(usernameField, new GetPropetries().getUserLogin());
+        setValues(passwordField, new GetPropetries().getUserPassword());
+        autoLogin.setSelected(new GetPropetries().getAutoLogin());
+        rememberMe.setSelected(new GetPropetries().getRememberMe());
+    }
 
     @FXML
-    private void handleLogin(){
+    private void handleLoginSave(){
+        MyShowsOAuth.getToken(usernameField.getText(), passwordField.getText());
+        if(MyShowsOAuth.getResponse()!=null){
+            new GetPropetries().setUserLogin(usernameField.getText());
+            new GetPropetries().setUserPassword(passwordField.getText());
+            /*new GetPropetries().setAutoLogin(Boolean.toString(autoLogin.isSelected()));
+            new GetPropetries().setRememberMe(Boolean.toString(rememberMe.isSelected()));*/
+            Stage stage = (Stage) loginSave.getScene().getWindow();
+            stage.close();
+        } else {
+
+            loginState.setText(MyShowsOAuth.errorHandle());
+        }
+
 
     }
 
@@ -45,7 +65,11 @@ public class loginController {
         stage.close();
     }
 
-
+    private static void setValues(TextField field, String value){
+        if(value!=""){
+            field.setText(value);
+        }
+    }
 
     /*public void rememberMe(){
         System.out.println(new GetPropetries().getRememberMe());

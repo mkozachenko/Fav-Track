@@ -3,6 +3,8 @@ package main;
 import java.io.*;
 import java.util.Date;
 import java.util.Properties;
+import org.apache.commons.configuration.*;
+import org.apache.commons.configuration.PropertiesConfiguration;
 
 
 /**
@@ -17,198 +19,177 @@ public class GetPropetries {
     private String VLC_host, VLC_port, VLC_password, VLC_login;
     private static String propFileName = "user.properties";
 
-    InputStream inputSecretStream;
-    OutputStream outputStream;
-
-    private void getSecretValues() throws IOException {
+    private void getSecretValues(){
+        String secretConfigFile = "config.properties";
         try {
-            Properties prop = new Properties();
-            String propFileName = "config.properties";
-            inputSecretStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-            if (inputSecretStream != null) {
-                prop.load(inputSecretStream);
+
+            PropertiesConfiguration secretConfig = new PropertiesConfiguration("src/resources/"+secretConfigFile);
+            if (secretConfig != null) {
+                //Extract secret credentials
+                MyShowsClientId = secretConfig.getString("MyShowsClientId");
+                MyShowsSecret = secretConfig.getString("MyShowsSecret");
             } else {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
-            //Extract secret credentials
-            MyShowsClientId = prop.getProperty("MyShowsClientId");
-            MyShowsSecret = prop.getProperty("MyShowsSecret");
         } catch (Exception e) {
             System.out.println("Exception: " + e);
-        } finally {
-            inputSecretStream.close();
         }
     }
 
-    private void getUserValues() throws IOException {
+    private void getUserValues(){
         try {
-            Properties prop = new Properties();
-            inputSecretStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-            if (inputSecretStream != null) {
-                prop.load(inputSecretStream);
-            } else {
-                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-            }
-            //Extract user preferences
-            user_pref_player = prop.getProperty("user_pref_player");
-            user_login = prop.getProperty("user_login");
-            user_password = prop.getProperty("user_password");
-            user_rememberMe = Boolean.valueOf(prop.getProperty("user_rememberMe"));
-            user_autologin = Boolean.valueOf(prop.getProperty("user_autologin"));
-
+            PropertiesConfiguration config = new PropertiesConfiguration("src/resources/"+propFileName);
+            user_pref_player = config.getString("user_pref_player");
+            user_login = config.getString("user_login");
+            user_password = config.getString("user_password");
+            user_rememberMe = config.getBoolean("user_rememberMe");
+            user_autologin = config.getBoolean("user_autologin");
         } catch (Exception e) {
             System.out.println("Exception: " + e);
-        } finally {
-            inputSecretStream.close();
         }
     }
 
-    private void getPlayerValues() throws IOException {
+    private void getPlayerValues(){
         try {
             getUserValues();
-            Properties prop = new Properties();
-            inputSecretStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-            if (inputSecretStream != null) {
-                prop.load(inputSecretStream);
-            } else {
-                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-            }
-            //Extract player setup
+            PropertiesConfiguration config = new PropertiesConfiguration("src/resources/"+propFileName);
+            MPC_host = config.getString("MPC_host");
+            MPC_port = config.getString("MPC_port");
+            VLC_host = config.getString("VLC_host");
+            VLC_port = config.getString("VLC_port");
+            VLC_password = config.getString("VLC_password");
+            VLC_login = config.getString("VLC_login");
+            /*//Extract player setup
             switch (user_pref_player){
                 case "MPC":
-                    MPC_host = prop.getProperty("MPC_host");
-                    MPC_port = prop.getProperty("MPC_port");
+                    MPC_host = config.getString("MPC_host");
+                    MPC_port = config.getString("MPC_port");
                     break;
                 case "VLC":
-                    VLC_host = prop.getProperty("VLC_host");
-                    VLC_port = prop.getProperty("VLC_port");
-                    VLC_password = prop.getProperty("VLC_password");
-                    VLC_login = prop.getProperty("VLC_login");
+                    VLC_host = config.getString("VLC_host");
+                    VLC_port = config.getString("VLC_port");
+                    VLC_password = config.getString("VLC_password");
+                    VLC_login = config.getString("VLC_login");
 
                     break;
-            }
+            }*/
 
         } catch (Exception e) {
             System.out.println("Exception: " + e);
-        } finally {
-            inputSecretStream.close();
         }
     }
 
-    private void setUserValues(String propName, String propValue) throws IOException {
-        String propFileName = "user.properties";
+    private void setUserValues(String propName, String propValue){
         try {
-            Properties prop = new Properties();
-            outputStream = new FileOutputStream(propFileName);
-            if (inputSecretStream != null) {
-                prop.load(inputSecretStream);
-            } else {
-                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-            }
-            //Setup user preferences
-            prop.setProperty(propName, propValue);
-            //prop.setProperty(propName, propValue);
-            //System.out.println(prop.put(propName, propValue));
-
+            PropertiesConfiguration config = new PropertiesConfiguration("src/resources/"+propFileName);
+            config.setProperty(propName, propValue);
+            config.save();
         } catch (Exception e) {
             System.out.println("Exception: " + e);
-        } finally {
-            inputSecretStream.close();
         }
     }
 
-
-    //Secret getters
+    //SECRET GETTERS
     public String getMyShowsClientId(){
-        try {getSecretValues();}
-        catch (IOException e) {e.printStackTrace();}
+        getSecretValues();
         return this.MyShowsClientId;
     }
     public String getMyShowsSecret(){
-        try {getSecretValues();}
-        catch (IOException e) {e.printStackTrace();}
+        getSecretValues();
         return this.MyShowsSecret;
     }
 
     //User prefs getters
     public String getUserPref_Player(){
-        try {getUserValues();}
-        catch (IOException e) {e.printStackTrace();}
+        getUserValues();
         return this.user_pref_player;
     }
 
     //Players setup getters
     public String getMPC_host(){
-        try {getPlayerValues();}
-        catch (IOException e) {e.printStackTrace();}
+        getPlayerValues();
         return this.MPC_host;
     }
     public String getMPC_port(){
-        try {getPlayerValues();}
-        catch (IOException e) {e.printStackTrace();}
+        getPlayerValues();
         return this.MPC_port;
     }
     public String getVLC_host(){
-        try {getPlayerValues();}
-        catch (IOException e) {e.printStackTrace();}
+        getPlayerValues();
         return this.VLC_host;
     }
     public String getVLC_port(){
-        try {getPlayerValues();}
-        catch (IOException e) {e.printStackTrace();}
+        getPlayerValues();
         return this.VLC_port;
     }
     public String getVLC_password(){
-        try {getPlayerValues();}
-        catch (IOException e) {e.printStackTrace();}
+        getPlayerValues();
         return this.VLC_password;
     }
     public String getVLC_login(){
-        try {getPlayerValues();}
-        catch (IOException e) {e.printStackTrace();}
+        getPlayerValues();
         return this.VLC_login;
     }
 
     //User login getters
     public String getUserLogin(){
-        try {getUserValues();}
-        catch (IOException e) {e.printStackTrace();}
+        getUserValues();
         return this.user_login;
     }
     public String getUserPassword(){
-        try {getUserValues();}
-        catch (IOException e) {e.printStackTrace();}
+        getUserValues();
         return this.user_password;
     }
     public boolean getRememberMe(){
-        try {getUserValues();}
-        catch (IOException e) {e.printStackTrace();}
+        getUserValues();
         return this.user_rememberMe;
     }
     public boolean getAutoLogin(){
-        try {getUserValues();}
-        catch (IOException e) {e.printStackTrace();}
+        getUserValues();
         return this.user_autologin;
     }
 
-    //User login setters
+
+    /**
+     USER LOGIN SETTERS
+     **/
     public void setUserLogin(String propValue){
-        try {setUserValues("user_login", propValue);}
-        catch (IOException e) {e.printStackTrace();}
+        setUserValues("user_login", propValue);
     }
-    public String setUserPassword(){
-        try {getUserValues();}
-        catch (IOException e) {e.printStackTrace();}
+    public String setUserPassword(String propValue){
+        setUserValues("user_password", propValue);
         return this.user_password;
     }
-    public boolean setRememberMe(){
-        try {getUserValues();}
-        catch (IOException e) {e.printStackTrace();}
+    public boolean setRememberMe(String propValue){
+        setUserValues("user_rememberMe", propValue);
         return this.user_rememberMe;
     }
-    public boolean setAutoLogin(){
-        try {getUserValues();}
-        catch (IOException e) {e.printStackTrace();}
+    public boolean setAutoLogin(String propValue){
+        setUserValues("user_autologin", propValue);
         return this.user_autologin;
     }
+
+    /*Set player settings*/
+    public void setUserPlayer(String propValue){
+        setUserValues("user_pref_player", propValue);
+    }
+    public void setMPC_host(String propValue){
+        setUserValues("MPC_host", propValue);
+    }
+    public void setMPC_port(String propValue){
+        setUserValues("MPC_port", propValue);
+    }
+    public void setVLC_host(String propValue){
+        setUserValues("VLC_host", propValue);
+    }
+    public void setVLC_port(String propValue){
+        setUserValues("VLC_port", propValue);
+    }
+    public void setVLC_password(String propValue){
+        setUserValues("VLC_password", propValue);
+    }
+    public void setVLC_login(String propValue){
+        setUserValues("VLC_login", propValue);
+    }
+
 }

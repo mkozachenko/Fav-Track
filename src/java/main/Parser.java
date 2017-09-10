@@ -9,7 +9,7 @@ import Parsers.*;
  * Created by symph on 17.07.2017.
  */
 public class Parser {
-    private String showName, season, episode;
+    private static String showName, season, episode;
 /*
     public void main (String[] args){
         MPC.getData();
@@ -23,11 +23,11 @@ public class Parser {
         Matcher matchEpisode = patternEpisode.matcher(filename);
         while (matchSeason.find()) {
             season = matchSeason.group().toLowerCase().replace("s", "");
-            System.out.println(season);
+            //System.out.println(season);
         }
         while (matchEpisode.find()) {
             episode = matchEpisode.group().toLowerCase().replace("e", "");
-            System.out.println(episode);
+            //System.out.println(episode);
         }
         Pattern patternName = Pattern.compile("(?i)(s\\d+e\\d+.+)",Pattern.CASE_INSENSITIVE);
         Matcher matchName = patternName.matcher(filename);
@@ -35,7 +35,7 @@ public class Parser {
             showName = filename.replace(matchName.group(), "");
             showName = showName.toLowerCase().replace("the", "");
             showName = showName.replace(".", " ");
-            System.out.println(showName);
+            //System.out.println(showName);
         }
     }
 

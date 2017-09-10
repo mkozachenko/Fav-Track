@@ -16,7 +16,7 @@ public class VLC {
     private static int length, time;
     private static DomElement DOMfilename, DOMtime, DOMlength, DOMepisode, DOMseason, DOMtitle;
 
-    public static void getData (){
+    public void getData (){
         VLC_host = new GetPropetries().getVLC_host();
         VLC_port = new GetPropetries().getVLC_port();
         VLC_password = new GetPropetries().getVLC_password();
@@ -33,36 +33,40 @@ public class VLC {
             try {
                 DOMepisode = page.getFirstByXPath("//information/category[@name='meta']/info[@name='episodeNumber']");
                 episodeNumber = DOMepisode.getTextContent();
-            } catch (NullPointerException e){/*System.err.println(e);*/}
+            } catch (NullPointerException e){System.err.println(e);}
             try {
                 DOMseason = page.getFirstByXPath("//information/category[@name='meta']/info[@name='seasonNumber']");
                 seasonNumber = DOMseason.getTextContent();
-            } catch (NullPointerException e){/*System.err.println(e);*/}
+            } catch (NullPointerException e){System.err.println(e);}
             try {
                 DOMtitle = page.getFirstByXPath("//information/category[@name='meta']/info[@name='showName']");
                 title = DOMtitle.getTextContent();
-            } catch (NullPointerException e){/*System.err.println(e);*/}
+            } catch (NullPointerException e){System.err.println(e);}
         } catch (IOException e){System.err.println(e);}
     }
 
     public int getPosition(){
+        getData();
         return this.time;
     }
-
     public int getDuration(){
+        getData();
         return this.length;
     }
-
     public String getFilename(){
+        getData();
         return this.filename;
     }
     public String getShowname(){
+        getData();
         return this.title;
     }
     public String getEpisode(){
+        getData();
         return this.episodeNumber;
     }
     public String getSeason(){
+        getData();
         return this.seasonNumber;
     }
 }

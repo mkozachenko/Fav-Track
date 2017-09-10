@@ -14,7 +14,7 @@ public class MPC {
     private static String MPC_host, MPC_port, filename;
     private static int position, duration;
 
-    public static void getData(){
+    public void getData(){
         MPC_host = new GetPropetries().getMPC_host();
         MPC_port = new GetPropetries().getMPC_port();
         try (final WebClient webClient = new WebClient()) {
@@ -28,12 +28,15 @@ public class MPC {
     }
 
     public int getPosition(){
+        getData();
         return this.position;
     }
     public int getDuration(){
+        getData();
         return this.duration;
     }
     public String getFilename(){
+        getData();
         return this.filename;
     }
 }
