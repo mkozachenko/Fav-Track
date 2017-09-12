@@ -18,7 +18,7 @@ public class MyShowsOAuth {
     private static final String token = "https://myshows.me/oauth/token";
     private static String responseToken, error, errorResponse;
 
-    //public static void main(String[] args){
+
     public static void getToken(String username, String password){
         String clientId = new GetPropetries().getMyShowsClientId();
         String secret = new GetPropetries().getMyShowsSecret();
