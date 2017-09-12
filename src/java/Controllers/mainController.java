@@ -174,7 +174,20 @@ public class mainController {
     }
     @FXML
     private void menuButtonAbout(){
-
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("aboutWindow.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            //Stage stageOld = (Stage) exit.getScene().getWindow();
+            //stageOld.hide();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            stage.setResizable(false);
+            stage.getIcons().add(new Image("star-icon.png"));
+            stage.setTitle("О программе");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     private void menuButtonLogin(){
@@ -186,6 +199,7 @@ public class mainController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.setResizable(false);
+            stage.getIcons().add(new Image("star-icon.png"));
             stage.setTitle("Настройки входа");
             stage.show();
         } catch (Exception e) {
@@ -202,6 +216,7 @@ public class mainController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.setResizable(false);
+            stage.getIcons().add(new Image("star-icon.png"));
             stage.setTitle("Настройки");
             stage.show();
         } catch (Exception e) {

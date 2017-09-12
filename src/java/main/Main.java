@@ -4,14 +4,11 @@ import Controllers.*;
 
 import javafx.application.Application;
 import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-
+import javafx.scene.image.Image;
 import java.util.concurrent.*;
 
 public class Main extends Application {
@@ -23,6 +20,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
         loader = new FXMLLoader(getClass().getClassLoader().getResource("mainWindow.fxml"));
         MyShowsOAuth.getToken(userLogin, userPassword);
         /*if(new GetPropetries().getAutoLogin()) {
@@ -46,6 +44,7 @@ public class Main extends Application {
         });
         primaryStage.setResizable(false);
         primaryStage.setTitle("FavTrack");
+        primaryStage.getIcons().add(new Image("star-icon.png"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 

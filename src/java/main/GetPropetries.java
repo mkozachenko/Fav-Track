@@ -23,7 +23,7 @@ public class GetPropetries {
         String secretConfigFile = "config.properties";
         try {
 
-            PropertiesConfiguration secretConfig = new PropertiesConfiguration("src/resources/"+secretConfigFile);
+            PropertiesConfiguration secretConfig = new PropertiesConfiguration(secretConfigFile);
             if (secretConfig != null) {
                 //Extract secret credentials
                 MyShowsClientId = secretConfig.getString("MyShowsClientId");
@@ -38,7 +38,7 @@ public class GetPropetries {
 
     private void getUserValues(){
         try {
-            PropertiesConfiguration config = new PropertiesConfiguration("src/resources/"+propFileName);
+            PropertiesConfiguration config = new PropertiesConfiguration(propFileName);
             user_pref_player = config.getString("user_pref_player");
             user_login = config.getString("user_login");
             user_password = config.getString("user_password");
@@ -52,7 +52,7 @@ public class GetPropetries {
     private void getPlayerValues(){
         try {
             getUserValues();
-            PropertiesConfiguration config = new PropertiesConfiguration("src/resources/"+propFileName);
+            PropertiesConfiguration config = new PropertiesConfiguration(propFileName);
             MPC_host = config.getString("MPC_host");
             MPC_port = config.getString("MPC_port");
             VLC_host = config.getString("VLC_host");
@@ -81,7 +81,7 @@ public class GetPropetries {
 
     private void setUserValues(String propName, String propValue){
         try {
-            PropertiesConfiguration config = new PropertiesConfiguration("src/resources/"+propFileName);
+            PropertiesConfiguration config = new PropertiesConfiguration(propFileName);
             config.setProperty(propName, propValue);
             config.save();
         } catch (Exception e) {

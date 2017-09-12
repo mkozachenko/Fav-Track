@@ -107,10 +107,10 @@ public class Shows {
         }
         //System.out.println(json);
         JsonObject jobject = new JsonParser().parse(json).getAsJsonObject();
-        System.out.println(jobject);
+        //System.out.println(jobject);
         if(jobject.has("result")){
             jobject = jobject.getAsJsonObject("result").getAsJsonObject("show");
-            System.out.println(jobject);
+            //System.out.println(jobject);
             title = jobject.get("title").toString().replace("\"", "");
             showId = jobject.get("id").toString();
             //poster = jobject.get("image").toString().replace("\"", "");
@@ -120,7 +120,7 @@ public class Shows {
             seasonNumber = jobject.get("seasonNumber").toString();
             episodeNumber = jobject.get("episodeNumber").toString();
             episodeId = jobject.get("id").toString();
-            System.out.println(new Shows().getShowname()+"->"+new Shows().getSeason()+"->"+new Shows().getEpisode());
+            //System.out.println(new Shows().getShowname()+"->"+new Shows().getSeason()+"->"+new Shows().getEpisode());
             return "ok";
         } else{
             /*
