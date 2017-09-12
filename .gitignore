@@ -28,3 +28,4 @@ src/java/Parsers/POTplayer.java
 ######################
 workspace.xml
 .idea/workspace.xml
+*.iml
