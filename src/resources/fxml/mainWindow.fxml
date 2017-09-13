@@ -52,7 +52,7 @@
                                  <children>
                                     <ImageView fx:id="showImage" fitHeight="357.0" fitWidth="447.0" layoutX="4.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                        <image>
-                                          <Image url="@Screenshot_328.png" />
+                                          <Image url="@../images/Screenshot_328.png" />
                                        </image>
                                     </ImageView>
                                  </children>

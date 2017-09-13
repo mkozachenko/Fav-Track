@@ -1,6 +1,5 @@
 package Controllers;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,12 +13,6 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import main.*;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
 
 /**
  * Created by symph on 09.07.2017.
@@ -175,14 +168,14 @@ public class mainController {
     @FXML
     private void menuButtonAbout(){
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("aboutWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/aboutWindow.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             //Stage stageOld = (Stage) exit.getScene().getWindow();
             //stageOld.hide();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.setResizable(false);
-            stage.getIcons().add(new Image("star-icon.png"));
+            stage.getIcons().add(new Image("images/star-icon.png"));
             stage.setTitle("О программе");
             stage.show();
         } catch (Exception e) {
@@ -192,14 +185,14 @@ public class mainController {
     @FXML
     private void menuButtonLogin(){
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("loginWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/loginWindow.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             //Stage stageOld = (Stage) exit.getScene().getWindow();
             //stageOld.hide();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.setResizable(false);
-            stage.getIcons().add(new Image("star-icon.png"));
+            stage.getIcons().add(new Image("images/star-icon.png"));
             stage.setTitle("Настройки входа");
             stage.show();
         } catch (Exception e) {
@@ -209,14 +202,14 @@ public class mainController {
     @FXML
     private void menuButtonSettings(){
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("settingsWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/settingsWindow.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             //Stage stageOld = (Stage) exit.getScene().getWindow();
             //stageOld.hide();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.setResizable(false);
-            stage.getIcons().add(new Image("star-icon.png"));
+            stage.getIcons().add(new Image("images/star-icon.png"));
             stage.setTitle("Настройки");
             stage.show();
         } catch (Exception e) {

@@ -1,11 +1,12 @@
 package main;
 
+
+
 import java.io.*;
 import java.util.Date;
 import java.util.Properties;
-import org.apache.commons.configuration.*;
 import org.apache.commons.configuration.PropertiesConfiguration;
-
+import org.apache.commons.io.FileUtils;
 
 /**
  * Created by symph on 20.07.2017.
@@ -17,12 +18,11 @@ public class GetPropetries {
     private boolean user_rememberMe,user_autologin;
     private String MPC_host, MPC_port;
     private String VLC_host, VLC_port, VLC_password, VLC_login;
-    private static String propFileName = "user.properties";
+    private static String propFileName = "user.properties", extFolder="./lib/";
 
     private void getSecretValues(){
         String secretConfigFile = "config.properties";
         try {
-
             PropertiesConfiguration secretConfig = new PropertiesConfiguration(secretConfigFile);
             if (secretConfig != null) {
                 //Extract secret credentials
@@ -37,8 +37,16 @@ public class GetPropetries {
     }
 
     private void getUserValues(){
+
         try {
-            PropertiesConfiguration config = new PropertiesConfiguration(propFileName);
+            File extPropFile = new File(extFolder+propFileName);
+            extPropFile.createNewFile();
+            FileUtils.copyFile(new File(propFileName),extPropFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            PropertiesConfiguration config = new PropertiesConfiguration(extFolder+propFileName);
             user_pref_player = config.getString("user_pref_player");
             user_login = config.getString("user_login");
             user_password = config.getString("user_password");
@@ -48,11 +56,10 @@ public class GetPropetries {
             System.out.println("Exception: " + e);
         }
     }
-
     private void getPlayerValues(){
         try {
-            getUserValues();
-            PropertiesConfiguration config = new PropertiesConfiguration(propFileName);
+            //getUserValues();
+            PropertiesConfiguration config = new PropertiesConfiguration(extFolder+propFileName);
             MPC_host = config.getString("MPC_host");
             MPC_port = config.getString("MPC_port");
             VLC_host = config.getString("VLC_host");
@@ -81,7 +88,7 @@ public class GetPropetries {
 
     private void setUserValues(String propName, String propValue){
         try {
-            PropertiesConfiguration config = new PropertiesConfiguration(propFileName);
+            PropertiesConfiguration config = new PropertiesConfiguration(extFolder+propFileName);
             config.setProperty(propName, propValue);
             config.save();
         } catch (Exception e) {

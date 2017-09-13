@@ -21,7 +21,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        loader = new FXMLLoader(getClass().getClassLoader().getResource("mainWindow.fxml"));
+        loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/mainWindow.fxml"));
         MyShowsOAuth.getToken(userLogin, userPassword);
         /*if(new GetPropetries().getAutoLogin()) {
             loader = new FXMLLoader(getClass().getClassLoader().getResource("mainWindow.fxml"));
@@ -44,7 +44,7 @@ public class Main extends Application {
         });
         primaryStage.setResizable(false);
         primaryStage.setTitle("FavTrack");
-        primaryStage.getIcons().add(new Image("star-icon.png"));
+        primaryStage.getIcons().add(new Image("images/star-icon.png"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
