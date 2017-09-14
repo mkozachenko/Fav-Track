@@ -19,16 +19,18 @@ public class MyShowsOAuth {
     private static String responseToken, error, errorResponse;
 
 
-    public static void getToken(String username, String password){
+    public static String getToken(String username, String password){
         String clientId = new GetPropetries().getMyShowsClientId();
         String secret = new GetPropetries().getMyShowsSecret();
+        String responceState=null;
         try {
             TokenResponse response =
                     new PasswordTokenRequest(new NetHttpTransport(), new JacksonFactory(),
                             new GenericUrl(token), username, password)
                             .setClientAuthentication(
                                     new BasicAuthentication(clientId, secret)).execute();
-            System.out.println("Access token: " + response.getAccessToken());
+            System.out.println("Access token granted");
+            responceState="ok";
             responseToken = response.getAccessToken();
         } catch (TokenResponseException e) {
             if (e.getDetails() != null) {
@@ -46,9 +48,12 @@ public class MyShowsOAuth {
                 System.err.println("GetMessage: "+e.getMessage());
                 error = e.getMessage();
             }
+            responceState = "fail";
         } catch (IOException e) {
+            responceState = "fail";
             e.printStackTrace();
         }
+        return responceState;
     }
 
     public static String getResponse(){
@@ -68,11 +73,11 @@ public class MyShowsOAuth {
                 case "Missing parameters: \"username\" and \"password\" required":
                     errorResponse = "Неверный логин или пароль";
                     break;
-                case "":
+/*                case "":
                     errorResponse = "OK";
-                    break;
+                    break;*/
                 default:
-                    errorResponse = "OK";
+                    errorResponse = "Ошибка";
                     break;
             }
         } else {return errorResponse = "OK";}

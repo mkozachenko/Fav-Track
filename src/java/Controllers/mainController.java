@@ -60,6 +60,8 @@ public class mainController {
     @FXML
     private void clickOnCorrectionConfirm(){
         correction = true;
+        new Shows().searchByFile(formSearchString(shownameField.getText().replace(" ", "."), seasonField.getText(), episodeField.getText()));
+        getShowData();
         shownameField.setEditable(false);
         seasonField.setEditable(false);
         episodeField.setEditable(false);
@@ -82,33 +84,17 @@ public class mainController {
     }
     @FXML
     private void clickSendButton(){
-        String rating, searchQuery, episodeId, season, episode;
+        String rating, showName, episodeId, season, episode;
+        showName = shownameField.getText().replace(" ", ".");
         season = seasonField.getText();
         episode = episodeField.getText();
         /*Get user rating*/
         RadioButton chk = (RadioButton)userRating.getSelectedToggle();
         rating = chk.getText();
         /*Form MyShows query*/
-        searchQuery = shownameField.getText().replace(" ", ".");
-        if (season.length()>1 && !season.startsWith("0")){
-            searchQuery = searchQuery+".S"+season;
-        }else if (season.length()==1){
-            searchQuery = searchQuery+".S0"+season;
-        } /*else if(season.startsWith("0")){
-            season.replaceFirst("0","");
-            searchQuery = searchQuery+".S"+season;
-        }*/
-        if (episode.length()>1 && !episode.startsWith("0")){
-            searchQuery = searchQuery+"E"+episode;
-        }else if (episode.length()==1){
-        searchQuery = searchQuery+"E0"+episode;
-        } /*else if(season.startsWith("0")){
-        season.replaceFirst("0","");
-        searchQuery = searchQuery+"E"+season;
-        }*/
-        System.out.println(searchQuery);
-        new Shows().searchByFile(searchQuery);
+        new Shows().searchByFile(formSearchString(showName, season, episode));
         episodeId = new Shows().getEpisodeId();
+        System.out.println(episodeId);
         new Manage().rateEpisode(episodeId,rating);
     }
 
@@ -128,11 +114,11 @@ public class mainController {
 
     public void getShowData(){
         new Shows().getById(Shows.showId);
+        System.out.println(Shows.showId);
         WebEngine webEngine = showInfo.getEngine();
-        String desc = new Shows().getDescription().replace("\\r","").replace("\\n","").replace("\"","");
+        //String desc = new Shows().getDescription().replace("\\r","").replace("\\n","").replace("\"","");
         String poster = new Shows().getPoster();
         img = new Image(poster);
-
         //webEngine.loadContent(desc);
         showImage.setImage(img);
         centerImage();
@@ -221,5 +207,26 @@ public class mainController {
         }
     }
 
+    private String formSearchString(String showName, String seasonNumber, String episodeNumber){
+        String searchQuery = showName;
+        if (seasonNumber.length()>1 && !seasonNumber.startsWith("0")){
+            searchQuery = searchQuery+".S"+seasonNumber;
+        }else if (seasonNumber.length()==1){
+            searchQuery = searchQuery+".S0"+seasonNumber;
+        } /*else if(season.startsWith("0")){
+            season.replaceFirst("0","");
+            searchQuery = searchQuery+".S"+season;
+        }*/
+        if (episodeNumber.length()>1 && !episodeNumber.startsWith("0")){
+            searchQuery = searchQuery+"E"+episodeNumber;
+        }else if (episodeNumber.length()==1){
+            searchQuery = searchQuery+"E0"+episodeNumber;
+        } /*else if(season.startsWith("0")){
+        season.replaceFirst("0","");
+        searchQuery = searchQuery+"E"+season;
+        }*/
+        System.out.println(searchQuery);
+        return searchQuery;
+    }
 
 }

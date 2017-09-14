@@ -44,8 +44,8 @@ public class loginController {
 
     @FXML
     private void handleLoginSave(){
-        MyShowsOAuth.getToken(usernameField.getText(), passwordField.getText());
-        if(MyShowsOAuth.getResponse()!=null){
+        //new MyShowsOAuth().getToken(usernameField.getText(), passwordField.getText());
+        if(new MyShowsOAuth().getToken(usernameField.getText(), passwordField.getText())=="ok"){
             new GetPropetries().setUserLogin(usernameField.getText());
             new GetPropetries().setUserPassword(passwordField.getText());
             /*new GetPropetries().setAutoLogin(Boolean.toString(autoLogin.isSelected()));
@@ -53,11 +53,8 @@ public class loginController {
             Stage stage = (Stage) loginSave.getScene().getWindow();
             stage.close();
         } else {
-
             loginState.setText(MyShowsOAuth.errorHandle());
         }
-
-
     }
 
     @FXML protected void handleQuit(ActionEvent event) throws IOException {

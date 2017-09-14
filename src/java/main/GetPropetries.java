@@ -74,7 +74,7 @@ public class GetPropetries {
     }
 
     private void getUserValues(){
-        URL url = getClass().getClassLoader().getResource(propFileName);
+        /*URL url = getClass().getClassLoader().getResource(propFileName);
         System.out.println(url);
         System.out.println(url.getPath());
         System.out.println(url.toExternalForm());
@@ -88,7 +88,7 @@ public class GetPropetries {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
         try {
             PropertiesConfiguration config = new PropertiesConfiguration(extFolder+propFileName);
             user_pref_player = config.getString("user_pref_player");
