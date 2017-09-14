@@ -3,6 +3,9 @@ package main;
 
 
 import java.io.*;
+import java.net.URL;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.Properties;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -18,7 +21,41 @@ public class GetPropetries {
     private boolean user_rememberMe,user_autologin;
     private String MPC_host, MPC_port;
     private String VLC_host, VLC_port, VLC_password, VLC_login;
-    private static String propFileName = "user.properties", extFolder="./lib/";
+    private static String propFileName = "user.properties", extFolder="./";
+    private static void copyFileUsingStream(File source, File dest) throws IOException {
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(source);
+            os = new FileOutputStream(dest);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+        } finally {
+            is.close();
+            os.close();
+        }
+    }
+    private static void copyFileUsingChannel(File source, File dest) throws IOException {
+        FileChannel sourceChannel = null;
+        FileChannel destChannel = null;
+        try {
+            sourceChannel = new FileInputStream(source).getChannel();
+            destChannel = new FileOutputStream(dest).getChannel();
+            destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
+        }finally{
+            sourceChannel.close();
+            destChannel.close();
+        }
+    }
+    private static void copyFileUsingJava7Files(File source, File dest) throws IOException {
+        Files.copy(source.toPath(), dest.toPath());
+    }
+    private static void copyFileUsingApacheCommonsIO(File source, File dest) throws IOException {
+        FileUtils.copyFile(source, dest);
+    }
 
     private void getSecretValues(){
         String secretConfigFile = "config.properties";
@@ -37,13 +74,20 @@ public class GetPropetries {
     }
 
     private void getUserValues(){
-
-        try {
-            File extPropFile = new File(extFolder+propFileName);
-            extPropFile.createNewFile();
-            FileUtils.copyFile(new File(propFileName),extPropFile);
-        } catch (IOException e) {
-            e.printStackTrace();
+        URL url = getClass().getClassLoader().getResource(propFileName);
+        System.out.println(url);
+        System.out.println(url.getPath());
+        System.out.println(url.toExternalForm());
+        System.out.println(url.getFile());
+        File source = new File(url.getPath());
+        File dest = new File(extFolder+propFileName);
+        System.out.println(source.exists()+"-_-"+dest.exists());
+        if(!dest.exists()){
+            try {
+                copyFileUsingJava7Files(source, dest);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         try {
             PropertiesConfiguration config = new PropertiesConfiguration(extFolder+propFileName);
@@ -85,8 +129,9 @@ public class GetPropetries {
             System.out.println("Exception: " + e);
         }
     }
-
     private void setUserValues(String propName, String propValue){
+
+
         try {
             PropertiesConfiguration config = new PropertiesConfiguration(extFolder+propFileName);
             config.setProperty(propName, propValue);
@@ -163,9 +208,8 @@ public class GetPropetries {
     public void setUserLogin(String propValue){
         setUserValues("user_login", propValue);
     }
-    public String setUserPassword(String propValue){
+    public void setUserPassword(String propValue){
         setUserValues("user_password", propValue);
-        return this.user_password;
     }
     public boolean setRememberMe(String propValue){
         setUserValues("user_rememberMe", propValue);

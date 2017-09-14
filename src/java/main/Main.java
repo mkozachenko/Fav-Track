@@ -9,17 +9,38 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+import org.apache.commons.io.FileUtils;
+
+import java.io.*;
+import java.net.URL;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import java.util.concurrent.*;
 
 public class Main extends Application {
-    boolean front=false;
-    String userLogin =new GetPropetries().getUserLogin();
+    boolean front = false;
+    String userLogin = new GetPropetries().getUserLogin();
     String userPassword = new GetPropetries().getUserPassword();
     public static FXMLLoader loader;
 
 
+    public static void main(String[] args) {
+
+        /*try {
+            File extPropFile = new File(extFolder+propFileName);
+            FileInputStream is = new FileInputStream(propFileName);
+            if(!extPropFile.exists()){
+                FileUtils.copyInputStreamToFile(is, extPropFile);
+                is.close();
+            } else {is.close();}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        launch(args);
+    }
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
 
         loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/mainWindow.fxml"));
         MyShowsOAuth.getToken(userLogin, userPassword);
@@ -47,20 +68,16 @@ public class Main extends Application {
         primaryStage.getIcons().add(new Image("images/star-icon.png"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
     }
 
-    boolean front(boolean percent){
-        if (percent){
-        front = true;}
+    boolean front(boolean percent) {
+        if (percent) {
+            front = true;
+        }
         return front;
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    private static void execute(){
+    private static void execute() {
         Probe controller = new Probe(loader.getController());
         controller.rememberMe();
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(5, r -> {
@@ -81,7 +98,7 @@ public class Main extends Application {
             Task<Object> task2 = new Task<Object>() {
                 @Override
                 public String call() {
-                    if(!mainController.correction){
+                    if (!mainController.correction) {
                         controller.showname();
                         System.out.println("SHOWTIME");
                     }

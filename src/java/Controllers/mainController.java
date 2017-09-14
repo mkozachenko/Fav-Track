@@ -13,6 +13,12 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import main.*;
+import org.apache.commons.io.FileUtils;
+
+import java.io.*;
+import java.net.URL;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 
 /**
  * Created by symph on 09.07.2017.
@@ -38,8 +44,6 @@ public class mainController {
     private ToggleGroup userRating;
     @FXML
     private MenuItem menuButton_settings, menuButton_login, menuButton_close, menuButton_about;
-
-
     @FXML
     private Button correctionButton, correctionConfirm, correctionCancel;
 
