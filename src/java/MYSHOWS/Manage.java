@@ -12,6 +12,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.apache.http.util.EntityUtils;
+import org.apache.xpath.operations.Bool;
 
 import java.io.*;
 import java.net.UnknownHostException;
@@ -32,15 +33,14 @@ public class Manage {
             description;
 
     public static void main(String[] args){
-<<<<<<< HEAD
         try {
-            MyShowsOAuth.getToken("symphonicon","159951");
+            MyShowsOAuth.getToken("","");
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-=======
-        MyShowsOAuth.getToken("","");
->>>>>>> 96ab0c16ddf16fb353fdad30981cfcddb24255d9
+
+        //MyShowsOAuth.getToken("","");
+
         new Manage().rateEpisode("16177086","4");
         new Manage().rateEpisode("16177087","1");
         new Manage().rateEpisode("16177088","2");
@@ -94,10 +94,13 @@ public class Manage {
         }
         System.out.println(json);
         JsonObject jobject = new JsonParser().parse(json).getAsJsonObject();
-        if(jobject.get("result").toString()=="true"){
+        if(Boolean.valueOf(jobject.get("result").toString())){
+            System.out.println(jobject.get("result").toString());
             return "ok";
         }else{
+            System.out.println(jobject.get("result").toString());
             return "fail";
+
         }
     }
 

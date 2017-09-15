@@ -126,7 +126,7 @@ public class Shows {
             seasonNumber = jobject.get("seasonNumber").toString();
             episodeNumber = jobject.get("episodeNumber").toString();
             episodeId = jobject.get("id").toString();
-            logger(logger,"info",new Shows().getShowname()+"->"+new Shows().getSeason()+"->"+new Shows().getEpisode());
+            //logger(logger,"info",new Shows().getShowname()+"->"+new Shows().getSeason()+"->"+new Shows().getEpisode());
             return "ok";
         } else{
             responseCode = jobject.getAsJsonObject("error").get("code").toString();

@@ -104,7 +104,7 @@ public class mainController {
         /*Form MyShows query*/
         new Shows().searchByFile(formSearchString(showName, season, episode));
         episodeId = new Shows().getEpisodeId();
-<<<<<<< HEAD
+
         System.out.println(episodeId);
         String rateResponce = new Manage().rateEpisode(episodeId,rating);
         switch(rateResponce){
@@ -114,12 +114,11 @@ public class mainController {
                 break;
             case "fail":
                 sendStatus.setText("Ошибка");
+                sendStatus.setTextFill(Paint.valueOf("RED"));
                 break;
         }
-=======
         //System.out.println(episodeId);
         new Manage().rateEpisode(episodeId,rating);
->>>>>>> 96ab0c16ddf16fb353fdad30981cfcddb24255d9
     }
 
     ////////////////////////////

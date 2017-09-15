@@ -9,13 +9,10 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 import java.io.IOException;
-<<<<<<< HEAD
 import java.net.UnknownHostException;
-=======
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
->>>>>>> 96ab0c16ddf16fb353fdad30981cfcddb24255d9
 
 /**
  * Created by symph on 09.07.2017.
