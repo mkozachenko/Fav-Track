@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import MYSHOWS.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -46,6 +47,8 @@ public class mainController {
     private MenuItem menuButton_settings, menuButton_login, menuButton_close, menuButton_about;
     @FXML
     private Button correctionButton, correctionConfirm, correctionCancel;
+    @FXML
+    private Label sendStatus, labelSeries;
 
     @FXML
     private void clickCorrectionButton(){
@@ -95,7 +98,16 @@ public class mainController {
         new Shows().searchByFile(formSearchString(showName, season, episode));
         episodeId = new Shows().getEpisodeId();
         System.out.println(episodeId);
-        new Manage().rateEpisode(episodeId,rating);
+        String rateResponce = new Manage().rateEpisode(episodeId,rating);
+        switch(rateResponce){
+            case "ok":
+                sendStatus.setTextFill(Paint.valueOf("GREEN"));
+                sendStatus.setText("Отправлено!");
+                break;
+            case "fail":
+                sendStatus.setText("Ошибка");
+                break;
+        }
     }
 
     ////////////////////////////

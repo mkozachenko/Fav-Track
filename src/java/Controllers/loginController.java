@@ -18,6 +18,7 @@ import main.GetPropetries;
 import main.MyShowsOAuth;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 /**
  * Created by symph on 09.07.2017.
@@ -43,7 +44,7 @@ public class loginController {
     }
 
     @FXML
-    private void handleLoginSave(){
+    private void handleLoginSave() throws UnknownHostException {
         //new MyShowsOAuth().getToken(usernameField.getText(), passwordField.getText());
         if(new MyShowsOAuth().getToken(usernameField.getText(), passwordField.getText())=="ok"){
             new GetPropetries().setUserLogin(usernameField.getText());

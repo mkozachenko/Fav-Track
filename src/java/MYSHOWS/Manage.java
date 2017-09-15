@@ -14,6 +14,7 @@ import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.*;
+import java.net.UnknownHostException;
 import java.util.Arrays;
 
 /**
@@ -31,7 +32,11 @@ public class Manage {
             description;
 
     public static void main(String[] args){
-        MyShowsOAuth.getToken("symphonicon","159951");
+        try {
+            MyShowsOAuth.getToken("symphonicon","159951");
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         new Manage().rateEpisode("16177086","4");
         new Manage().rateEpisode("16177087","1");
         new Manage().rateEpisode("16177088","2");
@@ -69,7 +74,6 @@ public class Manage {
         request.addHeader("content-type", "application/json");
         request.addHeader("Authorization", "Bearer "+ new MyShowsOAuth().getResponseNew());
         request.setEntity(params);
-
         try {
             response = client.execute(request);
             json = EntityUtils.toString(response.getEntity());
@@ -84,13 +88,12 @@ public class Manage {
                 e.printStackTrace();
             }
         }
-
         System.out.println(json);
         JsonObject jobject = new JsonParser().parse(json).getAsJsonObject();
         if(jobject.get("result").toString()=="true"){
-            return "true";
+            return "ok";
         }else{
-            return "false";
+            return "fail";
         }
     }
 

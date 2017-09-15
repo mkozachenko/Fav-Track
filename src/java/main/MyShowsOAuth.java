@@ -9,6 +9,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 /**
  * Created by symph on 09.07.2017.
@@ -19,7 +20,7 @@ public class MyShowsOAuth {
     private static String responseToken, error, errorResponse;
 
 
-    public static String getToken(String username, String password){
+    public static String getToken(String username, String password)throws UnknownHostException{
         String clientId = new GetPropetries().getMyShowsClientId();
         String secret = new GetPropetries().getMyShowsSecret();
         String responceState=null;
