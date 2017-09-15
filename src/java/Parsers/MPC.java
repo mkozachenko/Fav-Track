@@ -8,13 +8,19 @@ import main.*;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 import static java.lang.Integer.*;
 
 public class MPC {
     private static String MPC_host, MPC_port, filename;
     private static int position, duration;
+    private static Logger logger = Logger.getLogger(MPC.class.getName());
+    private static FileHandler fh;
 
-    public void getData(){
+    private void getData(){
         MPC_host = new GetPropetries().getMPC_host();
         MPC_port = new GetPropetries().getMPC_port();
         try (final WebClient webClient = new WebClient()) {
@@ -24,7 +30,31 @@ public class MPC {
                                 page.getElementById("position").getTextContent().length()-3)));
             duration = parseInt((page.getElementById("duration").getTextContent().substring(0,
                     page.getElementById("duration").getTextContent().length()-3)));
-        } catch (IOException e){System.err.println(e);}
+        } catch (IOException e){System.err.println(e); logger(logger,"error", e.getMessage());}
+    }
+
+    public static void logger(Logger logger, String level, String message) {
+        //Logger logger = Logger.getLogger();
+        try {
+            fh = new FileHandler("./logging.log", true);
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        switch (level) {
+            case "info":
+                logger.info("\n"+message+"\n");
+                fh.close();
+                break;
+            case "error":
+                logger.severe("\n"+message+"\n");
+                fh.close();
+                break;
+        }
     }
 
     public int getPosition(){

@@ -32,11 +32,15 @@ public class Manage {
             description;
 
     public static void main(String[] args){
+<<<<<<< HEAD
         try {
             MyShowsOAuth.getToken("symphonicon","159951");
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
+=======
+        MyShowsOAuth.getToken("","");
+>>>>>>> 96ab0c16ddf16fb353fdad30981cfcddb24255d9
         new Manage().rateEpisode("16177086","4");
         new Manage().rateEpisode("16177087","1");
         new Manage().rateEpisode("16177088","2");

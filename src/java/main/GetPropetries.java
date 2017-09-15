@@ -8,6 +8,10 @@ import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.util.Date;
 import java.util.Properties;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.io.FileUtils;
 
@@ -22,6 +26,9 @@ public class GetPropetries {
     private String MPC_host, MPC_port;
     private String VLC_host, VLC_port, VLC_password, VLC_login;
     private static String propFileName = "user.properties", extFolder="./";
+    private static Logger logger = Logger.getLogger(GetPropetries.class.getName());
+    private static FileHandler fh;
+
     private static void copyFileUsingStream(File source, File dest) throws IOException {
         InputStream is = null;
         OutputStream os = null;
@@ -69,7 +76,7 @@ public class GetPropetries {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
         } catch (Exception e) {
-            System.out.println("Exception: " + e);
+            logger(logger,"error","Exception: " + e);
         }
     }
 
@@ -130,14 +137,35 @@ public class GetPropetries {
         }
     }
     private void setUserValues(String propName, String propValue){
-
-
         try {
             PropertiesConfiguration config = new PropertiesConfiguration(extFolder+propFileName);
             config.setProperty(propName, propValue);
             config.save();
         } catch (Exception e) {
-            System.out.println("Exception: " + e);
+            logger(logger,"error", e.getMessage());
+        }
+    }
+
+    public static void logger(Logger logger, String level, String message) {
+        try {
+            fh = new FileHandler("./logging.log", true);
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        switch (level) {
+            case "info":
+                logger.info("\n"+message+"\n");
+                fh.close();
+                break;
+            case "error":
+                logger.severe("\n"+message+"\n");
+                fh.close();
+                break;
         }
     }
 
