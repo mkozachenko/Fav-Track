@@ -31,7 +31,7 @@ public class Manage {
             description;
 
     public static void main(String[] args){
-        MyShowsOAuth.getToken("symphonicon","159951");
+        MyShowsOAuth.getToken("","");
         new Manage().rateEpisode("16177086","4");
         new Manage().rateEpisode("16177087","1");
         new Manage().rateEpisode("16177088","2");

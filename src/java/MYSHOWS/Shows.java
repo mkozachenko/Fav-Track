@@ -22,6 +22,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Created by symph on 09.07.2017.
@@ -36,10 +39,12 @@ public class Shows {
     static HttpPost request = new HttpPost(url);
     public static String title, poster, filename, responseCode, seasonNumber, episodeNumber, showId, titleOriginal, titleRu, episodeId,
             description;
+    private static Logger logger = Logger.getLogger(Shows.class.getName());
+    private static FileHandler fh;
 
     public static void main(String[] args){
-        showId = "Game.of.Thrones.S07E04.rus.LostFilm.TV";
-        new Shows().searchByFile(showId);
+/*        showId = "DOctor.who.s01e05";
+        new Shows().searchByFile(showId);*/
     }
 
     public String getById(String id){
@@ -81,9 +86,10 @@ public class Shows {
             return "error";
         }
     }
+
     public String searchByFile(String filename){
-        httpclient.start();
         try {
+            httpclient.start();
             params = new StringEntity("{\"jsonrpc\": \"2.0\",\"method\": \"shows.SearchByFile\",\"params\": " +
                                         "{\"file\": \""+ filename +
                                         "\"},\"id\": 1}");
@@ -120,15 +126,35 @@ public class Shows {
             seasonNumber = jobject.get("seasonNumber").toString();
             episodeNumber = jobject.get("episodeNumber").toString();
             episodeId = jobject.get("id").toString();
-            //System.out.println(new Shows().getShowname()+"->"+new Shows().getSeason()+"->"+new Shows().getEpisode());
+            logger(logger,"info",new Shows().getShowname()+"->"+new Shows().getSeason()+"->"+new Shows().getEpisode());
             return "ok";
         } else{
-            /*
             responseCode = jobject.getAsJsonObject("error").get("code").toString();
-            System.out.println("Сериал не найден "+responseCode);
-            System.out.println(filename);
-            */
+            logger(logger,"error","Сериал не найден "+responseCode);
             return "error";
+        }
+    }
+
+    public static void logger(Logger logger, String level, String message) {
+        try {
+            fh = new FileHandler("./logging.log", true);
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        switch (level) {
+            case "info":
+                logger.info("\n"+message+"\n");
+                fh.close();
+                break;
+            case "error":
+                logger.severe("\n"+message+"\n");
+                fh.close();
+                break;
         }
     }
 
@@ -146,6 +172,9 @@ public class Shows {
     }
     public String getEpisodeId(){
         return this.episodeId;
+    }
+    public String getShowId(){
+        return this.showId;
     }
     public String getDescription(){
         return this.description;

@@ -16,12 +16,17 @@ import java.net.URL;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.util.concurrent.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Main extends Application {
     boolean front = false;
     String userLogin = new GetPropetries().getUserLogin();
     String userPassword = new GetPropetries().getUserPassword();
     public static FXMLLoader loader;
+    private static Logger logger = Logger.getLogger(Main.class.getName());
+    private static FileHandler fh;
 
 
     public static void main(String[] args) {
@@ -41,7 +46,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/mainWindow.fxml"));
         MyShowsOAuth.getToken(userLogin, userPassword);
         /*if(new GetPropetries().getAutoLogin()) {
@@ -119,9 +123,35 @@ public class Main extends Application {
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                logger(logger, "severe", e.getMessage());
             } catch (ExecutionException e) {
                 e.printStackTrace();
+                logger(logger, "severe", e.getMessage());
             }
         }, 1, 15, TimeUnit.SECONDS);
+    }
+
+    public static void logger(Logger logger, String level, String message) {
+        //Logger logger = Logger.getLogger();
+        try {
+            fh = new FileHandler("./logging.log", true);
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        switch (level) {
+            case "info":
+                logger.info("\n"+message+"\n");
+                fh.close();
+                break;
+            case "error":
+                logger.severe("\n"+message+"\n");
+                fh.close();
+                break;
+        }
     }
 }

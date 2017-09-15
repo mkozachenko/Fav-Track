@@ -19,6 +19,10 @@ import java.io.*;
 import java.net.URL;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 
 /**
  * Created by symph on 09.07.2017.
@@ -29,6 +33,8 @@ public class mainController {
     private long percent;
     public static boolean correction=false;
     private String episode, season, show;
+    private static java.util.logging.Logger logger = java.util.logging.Logger.getLogger(mainController.class.getName());
+    private static FileHandler fh;
 
     @FXML
     private TextField shownameField,seasonField, episodeField;
@@ -46,6 +52,7 @@ public class mainController {
     private MenuItem menuButton_settings, menuButton_login, menuButton_close, menuButton_about;
     @FXML
     private Button correctionButton, correctionConfirm, correctionCancel;
+
 
     @FXML
     private void clickCorrectionButton(){
@@ -94,7 +101,7 @@ public class mainController {
         /*Form MyShows query*/
         new Shows().searchByFile(formSearchString(showName, season, episode));
         episodeId = new Shows().getEpisodeId();
-        System.out.println(episodeId);
+        //System.out.println(episodeId);
         new Manage().rateEpisode(episodeId,rating);
     }
 
@@ -118,7 +125,9 @@ public class mainController {
         WebEngine webEngine = showInfo.getEngine();
         //String desc = new Shows().getDescription().replace("\\r","").replace("\\n","").replace("\"","");
         String poster = new Shows().getPoster();
-        img = new Image(poster);
+        try {
+            img = new Image(poster);
+        } catch (RuntimeException e){logger(logger,"error",e.getStackTrace().toString());}
         //webEngine.loadContent(desc);
         showImage.setImage(img);
         centerImage();
@@ -209,6 +218,8 @@ public class mainController {
 
     private String formSearchString(String showName, String seasonNumber, String episodeNumber){
         String searchQuery = showName;
+        /*String searchQuery = showName.toLowerCase();
+        searchQuery = Character.toUpperCase(searchQuery.charAt(0)) + searchQuery.substring(1);*/
         if (seasonNumber.length()>1 && !seasonNumber.startsWith("0")){
             searchQuery = searchQuery+".S"+seasonNumber;
         }else if (seasonNumber.length()==1){
@@ -225,8 +236,33 @@ public class mainController {
         season.replaceFirst("0","");
         searchQuery = searchQuery+"E"+season;
         }*/
-        System.out.println(searchQuery);
+
+        logger(logger,"info","Search query is: "+searchQuery);
         return searchQuery;
+    }
+
+    public static void logger(Logger logger, String level, String message) {
+        //Logger logger = Logger.getLogger();
+        try {
+            fh = new FileHandler("./logging.log", true);
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        switch (level) {
+            case "info":
+                logger.info("\n"+message+"\n");
+                fh.close();
+                break;
+            case "error":
+                logger.severe("\n"+message+"\n");
+                fh.close();
+                break;
+        }
     }
 
 }
