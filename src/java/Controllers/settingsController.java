@@ -1,20 +1,17 @@
 package Controllers;
 
-import MYSHOWS.Manage;
-import MYSHOWS.Shows;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import main.GetPropetries;
 
 public class settingsController {
     @FXML
-    private RadioButton select_MPC, select_VLC;
+    private RadioButton select_MPC, select_VLC, select_POT;
     @FXML
-    private TextField MPC_host_field, MPC_port_field, VLC_host_field, VLC_port_field, VLC_login_field, VLC_password_field;
+    private TextField MPC_host_field, MPC_port_field, VLC_host_field, VLC_port_field, VLC_login_field, VLC_password_field, showtime_field;
     @FXML
     private Button settingsSave, settingsDiscard;
 
@@ -26,6 +23,7 @@ public class settingsController {
         setValues(VLC_port_field,new GetPropetries().getVLC_port());
         setValues(VLC_login_field,new GetPropetries().getVLC_login());
         setValues(VLC_password_field,new GetPropetries().getVLC_password());
+        setValues(showtime_field, String.valueOf(new GetPropetries().getUserShowtime()));
 
         switch(new GetPropetries().getUserPref_Player()){
             case "MPC":
@@ -43,8 +41,9 @@ public class settingsController {
             new GetPropetries().setUserPlayer("VLC");
         } else if(select_MPC.isSelected()){
             new GetPropetries().setUserPlayer("MPC");
+        }else if(select_POT.isSelected()) {
+            new GetPropetries().setUserPlayer("POT");
         }
-
         new GetPropetries().setMPC_host(MPC_host_field.getText());
         new GetPropetries().setMPC_port(MPC_port_field.getText());
 
@@ -52,6 +51,7 @@ public class settingsController {
         new GetPropetries().setVLC_port(VLC_port_field.getText());
         new GetPropetries().setVLC_login(VLC_login_field.getText());
         new GetPropetries().setVLC_password(VLC_password_field.getText());
+        new GetPropetries().setUserShowtime(showtime_field.getText());
 
         Stage stage = (Stage) settingsDiscard.getScene().getWindow();
         stage.close();

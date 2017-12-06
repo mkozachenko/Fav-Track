@@ -1,5 +1,7 @@
 package Controllers;
 
+import MYSHOWS.Manage;
+import MYSHOWS.Shows;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,19 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import MYSHOWS.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import main.*;
-import org.apache.commons.io.FileUtils;
+import main.Getter;
 
-import java.io.*;
-import java.net.URL;
-import java.nio.channels.FileChannel;
-import java.nio.file.Files;
+import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -34,7 +30,7 @@ public class mainController {
     private long percent;
     public static boolean correction=false;
     private String episode, season, show;
-    private static java.util.logging.Logger logger = java.util.logging.Logger.getLogger(mainController.class.getName());
+    private static Logger logger = Logger.getLogger(mainController.class.getName());
     private static FileHandler fh;
 
     @FXML

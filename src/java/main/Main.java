@@ -1,29 +1,28 @@
 package main;
 
-import Controllers.*;
-
+import Controllers.mainController;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.scene.image.Image;
-import org.apache.commons.io.FileUtils;
+import javafx.stage.Stage;
 
-import java.io.*;
-import java.net.URL;
-import java.nio.channels.FileChannel;
-import java.nio.file.Files;
-import java.util.concurrent.*;
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class Main extends Application {
     boolean front = false;
-    String userLogin = new GetPropetries().getUserLogin();
-    String userPassword = new GetPropetries().getUserPassword();
+    //private static int showtime = new GetPropetries().getUserShowtime();
+    private static String userLogin = new GetPropetries().getUserLogin();
+    private String userPassword = new GetPropetries().getUserPassword();
     public static FXMLLoader loader;
     private static Logger logger = Logger.getLogger(Main.class.getName());
     private static FileHandler fh;
@@ -95,7 +94,7 @@ public class Main extends Application {
                 public Boolean call() {
                     boolean end;
                     System.out.println(controller.percentage());
-                    end = controller.percentage() >= 95.0;
+                    end = controller.percentage() >= new GetPropetries().getUserShowtime();
                     return end;
                 }
             };
@@ -104,7 +103,6 @@ public class Main extends Application {
                 public String call() {
                     if (!mainController.correction) {
                         controller.showname();
-                        System.out.println("SHOWTIME");
                     }
                     return null;
                 }

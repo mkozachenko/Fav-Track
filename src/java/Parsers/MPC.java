@@ -3,16 +3,16 @@ package Parsers;
  * Created by symph on 13.07.2017.
  */
 
-import main.*;
-
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import main.GetPropetries;
+
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-import static java.lang.Integer.*;
+import static java.lang.Integer.parseInt;
 
 public class MPC {
     private static String MPC_host, MPC_port, filename;

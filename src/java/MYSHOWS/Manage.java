@@ -2,7 +2,6 @@ package MYSHOWS;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 import main.MyShowsOAuth;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -12,11 +11,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.apache.http.util.EntityUtils;
-import org.apache.xpath.operations.Bool;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
-import java.util.Arrays;
 
 /**
  * Created by symph on 09.07.2017.

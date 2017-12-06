@@ -1,10 +1,7 @@
 package main;
 
-import Parsers.MPC;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import Parsers.*;
 /**
  * Created by symph on 17.07.2017.
  */
@@ -34,7 +31,7 @@ public class Parser {
         while (matchName.find()) {
             showName = filename.replace(matchName.group(), "");
             showName = showName.toLowerCase().replace("the", "");
-            showName = showName.replace(".", " ");
+            showName = showName.replace(".", " ").trim();
             //System.out.println(showName);
         }
     }

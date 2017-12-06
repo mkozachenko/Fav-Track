@@ -11,6 +11,7 @@ config.properties
 .Trashes
 ehthumbs.db
 Thumbs.db
+*.log
 
 #FOLDERS#
 ######################
@@ -26,6 +27,9 @@ src/java/Parsers/POTplayer.java
 
 #IDE SETUP#
 ######################
-workspace.xml
+*.xml
 .idea/workspace.xml
+.idea/misc.xml
 *.iml
+.idea/misc.xml
+.idea/workspace.xml

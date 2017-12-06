@@ -1,9 +1,7 @@
 package main;
 
-import Controllers.*;
-import Parsers.*;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import Controllers.loginController;
+import Controllers.mainController;
 
 /**
  * Created by Admin on 20.07.2017.
@@ -22,12 +20,6 @@ public class Probe {
     /*public Probe(loginController lc) {
         this.lc = lc;
     }*/
-
-    public static void main (String[] args){
-        System.out.println(new GetPropetries().getUserLogin());
-        new GetPropetries().setUserLogin("sdsdfsghh");
-        System.out.println(new GetPropetries().getUserLogin());
-    }
 
     public double percentage(){
        /* MPC.getData();

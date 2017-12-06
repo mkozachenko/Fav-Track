@@ -1,19 +1,15 @@
 package main;
 
 
+import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.io.FileUtils;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
-import java.util.Date;
-import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-
-import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.commons.io.FileUtils;
 
 /**
  * Created by symph on 20.07.2017.
@@ -22,6 +18,7 @@ public class GetPropetries {
 
     private String MyShowsClientId, MyShowsSecret;
     private String user_pref_player, user_login, user_password;
+    private static int user_showtime;
     private boolean user_rememberMe,user_autologin;
     private String MPC_host, MPC_port;
     private String VLC_host, VLC_port, VLC_password, VLC_login;
@@ -81,21 +78,6 @@ public class GetPropetries {
     }
 
     private void getUserValues(){
-        /*URL url = getClass().getClassLoader().getResource(propFileName);
-        System.out.println(url);
-        System.out.println(url.getPath());
-        System.out.println(url.toExternalForm());
-        System.out.println(url.getFile());
-        File source = new File(url.getPath());
-        File dest = new File(extFolder+propFileName);
-        System.out.println(source.exists()+"-_-"+dest.exists());
-        if(!dest.exists()){
-            try {
-                copyFileUsingJava7Files(source, dest);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }*/
         try {
             PropertiesConfiguration config = new PropertiesConfiguration(extFolder+propFileName);
             user_pref_player = config.getString("user_pref_player");
@@ -103,6 +85,8 @@ public class GetPropetries {
             user_password = config.getString("user_password");
             user_rememberMe = config.getBoolean("user_rememberMe");
             user_autologin = config.getBoolean("user_autologin");
+            user_showtime = config.getInt("user_showtime");
+            /*logger.info(config.getPath());*/
         } catch (Exception e) {
             System.out.println("Exception: " + e);
         }
@@ -141,6 +125,7 @@ public class GetPropetries {
             PropertiesConfiguration config = new PropertiesConfiguration(extFolder+propFileName);
             config.setProperty(propName, propValue);
             config.save();
+            //logger.info(config.getPath());
         } catch (Exception e) {
             logger(logger,"error", e.getMessage());
         }
@@ -183,6 +168,10 @@ public class GetPropetries {
     public String getUserPref_Player(){
         getUserValues();
         return this.user_pref_player;
+    }
+    public int getUserShowtime(){
+        getUserValues();
+        return this.user_showtime;
     }
 
     //Players setup getters
@@ -231,7 +220,7 @@ public class GetPropetries {
 
 
     /**
-     USER LOGIN SETTERS
+     USER PREFS SETTERS
      **/
     public void setUserLogin(String propValue){
         setUserValues("user_login", propValue);
@@ -246,6 +235,9 @@ public class GetPropetries {
     public boolean setAutoLogin(String propValue){
         setUserValues("user_autologin", propValue);
         return this.user_autologin;
+    }
+    public void setUserShowtime(String propValue){
+        setUserValues("user_showtime", propValue);
     }
 
     /*Set player settings*/
